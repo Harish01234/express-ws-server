@@ -21,7 +21,7 @@ app.get('/',(req,res)=>{
 const experssserver=app.listen(4000)
 
 // Create socket.io server
-const io = new Server(expressServer, {
+const io = new Server(experssserver, {
     cors: {
         origin: 'https://random-group-chat-app.vercel.app', // Remove the trailing slash
         methods: ['GET', 'POST']
