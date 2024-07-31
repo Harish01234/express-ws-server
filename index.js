@@ -1,52 +1,50 @@
-import express from 'express'
-import cors from 'cors'
-
+import express from 'express';
+import cors from 'cors';
 import { Server } from "socket.io";
 
-const app=express() //create express app
-// Configure CORS
+const app = express(); // create express app
 
+// Configure CORS
 app.use(cors({
-    origin: 'https://random-group-chat-app.vercel.app', // Remove the trailing slash
+    origin: 'https://random-group-chat-app.vercel.app', // Allow CORS for this origin
     methods: ['GET', 'POST']
 }));
 
+// Explicitly handle CORS headers
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://random-group-chat-app.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'GET, POST');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-app.get('/',(req,res)=>{
-    res.send("hiii")
-})
+app.get('/', (req, res) => {
+    res.send("hiii");
+});
 
-const experssserver=app.listen(4000)
+const expressServer = app.listen(4000); // Listen on port 4000
 
 // Create socket.io server
-const io = new Server(experssserver, {
+const io = new Server(expressServer, {
     cors: {
-        origin: 'https://random-group-chat-app.vercel.app', // Remove the trailing slash
+        origin: 'https://random-group-chat-app.vercel.app', // Allow CORS for this origin
         methods: ['GET', 'POST']
     }
 });
-//on is a regular js/node event handler
 
-io.on('connection',(socket)=>{
-    // // console.log(socket.handshake);
-    // // console.log(socket.id,"has joined our server");
+// On connection event
+io.on('connection', (socket) => {
+    console.log(`User connected: ${socket.id}`);
 
-    // socket.emit('welcome',[1,2,3])
+    // Handle message from client to server
+    socket.on('messageFromClientToServer', newMessage => {
+        io.emit('messageFromServerToAllClients', newMessage);
+    });
 
-    // socket.on('thankyou',(data)=>{
-    //     console.log(data);
-    // })
-
-    // io.emit('newclient',`a new client joined with id ${socket.id}`)
-    socket.on('messageFromClientToServer',newMessage=>{
-        // pass through the message to everyone connected
-        io.emit('messageFromServerToAllClients',newMessage)
-    })
-
+    // Handle disconnect event
     socket.on('disconnect', (reason) => {
         console.log(`User disconnected: ${socket.id}, Reason: ${reason}`);
     });
-})
-
+});
