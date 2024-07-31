@@ -1,9 +1,15 @@
 import express from 'express'
+import cors from 'cors'
 
 import { Server } from "socket.io";
 
 const app=express() //create express app
 
+// Configure CORS
+app.use(cors({
+    origin: 'https://basic-group-chat-app.vercel.app' // Replace with your client’s origin
+  }));
+  
 app.use(express.static('public'))
 
 app.get('/',(req,res)=>{
