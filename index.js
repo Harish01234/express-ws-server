@@ -4,11 +4,13 @@ import cors from 'cors'
 import { Server } from "socket.io";
 
 const app=express() //create express app
-
 // Configure CORS
+
+
 app.use(cors({
-    origin: 'https://basic-group-chat-app.vercel.app' // Replace with your client’s origin
-  }));
+    origin: 'https://basic-group-chat-app.vercel.app', // Replace with your client’s origin
+    methods: ['GET', 'POST']
+}));
   
 app.use(express.static('public'))
 
@@ -18,11 +20,11 @@ app.get('/',(req,res)=>{
 
 const experssserver=app.listen(4000)
 
-//create socket io server
-
+// Create socket.io server
 const io = new Server(experssserver, {
     cors: {
-        origin: 'https://basic-group-chat-app.vercel.app'
+        origin: 'https://basic-group-chat-app.vercel.app',
+        methods: ['GET', 'POST']
     }
 });
 
