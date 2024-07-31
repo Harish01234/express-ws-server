@@ -8,7 +8,7 @@ const app=express() //create express app
 
 
 app.use(cors({
-    origin: 'https://basic-group-chat-app.vercel.app', // Replace with your client’s origin
+    origin: 'https://random-group-chat-app.vercel.app/', // Replace with your client’s origin
     methods: ['GET', 'POST']
 }));
   
@@ -23,7 +23,7 @@ const experssserver=app.listen(4000)
 // Create socket.io server
 const io = new Server(experssserver, {
     cors: {
-        origin: 'https://basic-group-chat-app.vercel.app',
+        origin: 'https://random-group-chat-app.vercel.app/',
         methods: ['GET', 'POST']
     }
 });
