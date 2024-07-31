@@ -6,12 +6,12 @@ import { Server } from "socket.io";
 const app=express() //create express app
 // Configure CORS
 
-
 app.use(cors({
-    origin: 'https://random-group-chat-app.vercel.app/', // Replace with your client’s origin
+    origin: 'https://random-group-chat-app.vercel.app', // Remove the trailing slash
     methods: ['GET', 'POST']
 }));
-  
+
+
 app.use(express.static('public'))
 
 app.get('/',(req,res)=>{
@@ -21,13 +21,12 @@ app.get('/',(req,res)=>{
 const experssserver=app.listen(4000)
 
 // Create socket.io server
-const io = new Server(experssserver, {
+const io = new Server(expressServer, {
     cors: {
-        origin: 'https://random-group-chat-app.vercel.app/',
+        origin: 'https://random-group-chat-app.vercel.app', // Remove the trailing slash
         methods: ['GET', 'POST']
     }
 });
-
 //on is a regular js/node event handler
 
 io.on('connection',(socket)=>{
