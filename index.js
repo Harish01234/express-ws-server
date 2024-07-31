@@ -20,11 +20,11 @@ const experssserver=app.listen(4000)
 
 //create socket io server
 
-const io=new Server(experssserver,{
+const io = new Server(experssserver, {
     cors: {
-        origin: "*"
-      }
-})
+        origin: 'https://basic-group-chat-app.vercel.app'
+    }
+});
 
 //on is a regular js/node event handler
 
