@@ -4,19 +4,19 @@ import { Server } from 'socket.io';
 
 const app = express(); // create express app
 
-// Configure CORS
+// Configure CORS to allow all origins
 app.use(cors({
-    origin: 'https://random-group-chat-app.vercel.app', // Allow CORS for this origin
+    origin: '*', // Allow all origins
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
 
 app.use(express.static('public'));
 
+// Route to serve the HTML file
 app.get('/', (req, res) => {
-    res.send("hiii");
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 const expressServer = app.listen(4000, () => {
     console.log('Express server listening on port 4000');
 });
@@ -24,7 +24,7 @@ const expressServer = app.listen(4000, () => {
 // Create socket.io server
 const io = new Server(expressServer, {
     cors: {
-        origin: 'https://random-group-chat-app.vercel.app', // Allow CORS for this origin
+        origin: '*', // Allow all origins
         methods: ['GET', 'POST']
     }
 });
