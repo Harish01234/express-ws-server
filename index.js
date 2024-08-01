@@ -1,22 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-import { Server } from "socket.io";
+import { Server } from 'socket.io';
 
 const app = express(); // create express app
 
 // Configure CORS
 app.use(cors({
     origin: 'https://random-group-chat-app.vercel.app', // Allow CORS for this origin
-    methods: ['GET', 'POST']
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
 }));
-
-// Explicitly handle CORS headers
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://random-group-chat-app.vercel.app');
-    res.header('Access-Control-Allow-Methods', 'GET, POST');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 
 app.use(express.static('public'));
 
@@ -24,7 +17,9 @@ app.get('/', (req, res) => {
     res.send("hiii");
 });
 
-const expressServer = app.listen(4000); // Listen on port 4000
+const expressServer = app.listen(4000, () => {
+    console.log('Express server listening on port 4000');
+});
 
 // Create socket.io server
 const io = new Server(expressServer, {
