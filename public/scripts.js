@@ -1,13 +1,14 @@
 console.log(io());
 
-const socket=io('https://express-ws-server.vercel.app/',{
+const socket = io({
     auth: {
         token: "abcd"
-      },
+    },
     query: {
         x: 42
-      }
-})
+    }
+});
+
 
 socket.on('welcome',(data)=>{
     console.log(data);
