@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://basic-group-chat-app.vercel.app//scripts.js"></script>
+    
 </head>
 <body>
-    <h1>hiiii i am a html file</h1>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form id="messages-form" class="d-flex mb-3">
+                    <input id="user-message" type="text" class="form-control me-2" placeholder="Enter message here" />
+                    <button type="submit" class="btn btn-primary">Send Message!</button>
+                </form>
+                <ul id="messages" class="list-group">
+                    <!-- Starts empty, populated by Socket.io and JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
